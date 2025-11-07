@@ -9,9 +9,18 @@
 #include <dt-bindings/zmk/keys.h>
 
 / {
+    macros {
+        // Macro for vim register access: " followed by +
+        vim_reg: vim_reg {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp DQT &kp PLUS>;
+        };
+    };
+
     behaviors {
-        // Tap for ESC, hold for LOWER layer
-        esc_lower: esc_lower {
+        // Tap for COLON, hold for LOWER layer
+        colon_lower: colon_lower {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
@@ -20,8 +29,8 @@
             bindings = <&mo>, <&kp>;
         };
         
-        // Tap for BACKSPACE, hold for RAISE layer
-        bspc_raise: bspc_raise {
+        // Tap for CTRL, hold for RAISE layer
+        ctrl_raise: ctrl_raise {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
@@ -40,7 +49,7 @@
             // |  TAB  |  Q  |  W  |  E   |  R   |  T   |                   |  Y   |  U    |  I    |  O   |   P   |   -   |
             // | CAPS  |  A  |  S  |  D   |  F   |  G   |                   |  H   |  J    |  K    |  L   |   ;   |   '   |
             // | SHIFT |  Z  |  X  |  C   |  V   |  B   |   "["  |  |  "]"  |  N   |  M    |  ,    |  .   |   /   | SHIFT |
-            //                     | ALT  | GUI  |ESC/LWR| SPACE |  | ENTER |BSP/RSE|  :    | GUI   |
+            //                     | ALT  | GUI  | :/LWR | SPACE |  | ENTER |CTRL/RSE| BSPC | ALTGR |
 
             display-name = "Base";
             bindings = <
@@ -48,7 +57,7 @@
 &kp TAB    &kp Q   &kp W   &kp E     &kp R     &kp T                                        &kp Y   &kp U              &kp I      &kp O      &kp P     &kp MINUS
 &kp CLCK   &kp A   &kp S   &kp D     &kp F     &kp G                                        &kp H   &kp J              &kp K      &kp L      &kp SEMI  &kp SQT
 &kp LSHFT  &kp Z   &kp X   &kp C     &kp V     &kp B   &kp LBKT       &kp RBKT              &kp N   &kp M              &kp COMMA  &kp DOT    &kp FSLH  &kp RSHFT
-                           &kp LALT  &kp LGUI  &esc_lower 1 ESC  &kp SPACE    &kp RET    &bspc_raise 2 BSPC  &kp COLON  &kp RGUI
+                           &kp LALT  &kp LGUI  &colon_lower 1 COLON  &kp SPACE    &kp RET  &ctrl_raise 2 LCTRL  &kp BSPC  &kp RALT
             >;
         };
 
@@ -58,7 +67,7 @@
             // |  F1   |  F2 |  F3 |  F4  |  F5  |  F6  |                   |  F7  |  F8   |  F9   | F10  |  F11  |  F12  |
             // |   `   |  !  |  @  |  #   |  $   |  %   |                   |  ^   |  &    |  *    |  (   |   )   |   ~   |
             // |       |  [  |  ]  |  {   |  }   |  \   |        |  |       |      |  _    |  +    |  =   |   |   |  "|"  |
-            //                     |      |      |      |        |  |       | ADJ  |       |       |
+            //                     |      |      | HOLD |        |  |       | ADJ  |       |       |
 
             display-name = "Lower";
             bindings = <
@@ -74,19 +83,19 @@
 
         raise_layer {
             // ------------------------------------------------------------------------------------------------------------
-            // |       | INS | INS | HOME | PGUP |      |                   |      |       |       |      |       |       |
+            // |       | "+  | INS | HOME | PGUP |      |                   |      |       |       |      |       |       |
             // |       |     | DEL | END  | PGDN |      |                   |      |       |  UP   |      |       |       |
             // |       |     |     |      |      |      |                   |      | LEFT  | DOWN  | RIGHT|       |       |
             // |       |     |     |      |      |      |        |  |       |      | HOME  | PGDN  | PGUP | END   |       |
-            //                     |      |      | ADJ  |        |  |       |      |       |       |
+            //                     |      |      | ADJ  |        |  |       | HOLD |       |       |
 
             display-name = "Raise";
             bindings = <
-&trans  &kp INS  &kp INS  &kp HOME  &kp PG_UP  &trans                      &trans  &trans    &trans     &trans     &trans   &trans
-&trans  &trans   &kp DEL  &kp END   &kp PG_DN  &trans                      &trans  &trans    &kp UP     &trans     &trans   &trans
-&trans  &trans   &trans   &trans    &trans     &trans                      &trans  &kp LEFT  &kp DOWN   &kp RIGHT  &trans   &trans
-&trans  &trans   &trans   &trans    &trans     &trans  &trans    &trans    &trans  &kp HOME  &kp PG_DN  &kp PG_UP  &kp END  &trans
-                          &trans    &trans     &mo 3   &trans    &trans    &trans  &trans    &trans
+&trans  &vim_reg  &kp INS  &kp HOME  &kp PG_UP  &trans                      &trans  &trans    &trans     &trans     &trans   &trans
+&trans  &trans    &kp DEL  &kp END   &kp PG_DN  &trans                      &trans  &trans    &kp UP     &trans     &trans   &trans
+&trans  &trans    &trans   &trans    &trans     &trans                      &trans  &kp LEFT  &kp DOWN   &kp RIGHT  &trans   &trans
+&trans  &trans    &trans   &trans    &trans     &trans  &trans    &trans    &trans  &kp HOME  &kp PG_DN  &kp PG_UP  &kp END  &trans
+                           &trans    &trans     &mo 3   &trans    &trans    &trans  &trans    &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
