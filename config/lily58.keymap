@@ -29,8 +29,8 @@
             bindings = <&mo>, <&kp>;
         };
         
-        // Tap for CTRL, hold for RAISE layer
-        ctrl_raise: ctrl_raise {
+        // Tap for BSPC, hold for RAISE layer
+        bspc_raise: bspc_raise {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
@@ -49,7 +49,7 @@
             // |  TAB  |  Q  |  W  |  E   |  R   |  T   |                   |  Y   |  U    |  I    |  O   |   P   |   -   |
             // | CAPS  |  A  |  S  |  D   |  F   |  G   |                   |  H   |  J    |  K    |  L   |   ;   |   '   |
             // | SHIFT |  Z  |  X  |  C   |  V   |  B   |   "["  |  |  "]"  |  N   |  M    |  ,    |  .   |   /   | SHIFT |
-            //                     | ALT  | GUI  | :/LWR | SPACE |  | ENTER |CTRL/RSE| BSPC | ALTGR |
+            //                     | ALT  | GUI  | :/LWR | SPACE |  | ENTER |BSPC/RSE| CTRL | ALTGR |
 
             display-name = "Base";
             bindings = <
@@ -57,24 +57,24 @@
 &kp TAB    &kp Q   &kp W   &kp E     &kp R     &kp T                                        &kp Y   &kp U              &kp I      &kp O      &kp P     &kp MINUS
 &kp CLCK   &kp A   &kp S   &kp D     &kp F     &kp G                                        &kp H   &kp J              &kp K      &kp L      &kp SEMI  &kp SQT
 &kp LSHFT  &kp Z   &kp X   &kp C     &kp V     &kp B   &kp LBKT       &kp RBKT              &kp N   &kp M              &kp COMMA  &kp DOT    &kp FSLH  &kp RSHFT
-                           &kp LALT  &kp LGUI  &colon_lower 1 COLON  &kp SPACE    &kp RET  &ctrl_raise 2 LCTRL  &kp BSPC  &kp RALT
+                           &kp LALT  &kp LGUI  &colon_lower 1 COLON  &kp SPACE    &kp RET  &bspc_raise 2 BSPC  &kp LCTRL  &kp RALT
             >;
         };
 
         lower_layer {
             // ------------------------------------------------------------------------------------------------------------
-            // |   1   |  2  |  3  |  4   |  5   |  6   |                   |      |       |       |      |       |  DEL  |
             // |  F1   |  F2 |  F3 |  F4  |  F5  |  F6  |                   |  F7  |  F8   |  F9   | F10  |  F11  |  F12  |
-            // |   `   |  !  |  @  |  #   |  $   |  %   |                   |  ^   |  &    |  *    |  (   |   )   |   ~   |
-            // |       |  [  |  ]  |  {   |  }   |  \   |        |  |       |      |  _    |  +    |  =   |   |   |  "|"  |
+            // |   `   |  !  |  @  |  #   |  $   |  %   |                   | INS  | DEL   | HOME  | END  | PGUP  | PGDN  |
+            // |       |  [  |  ]  |  {   |  }   |  \   |                   |  ^   |  &    |  *    |  (   |   )   |   ~   |
+            // |       |     |     |      |      |      |        |  |       |      |  _    |  +    |  =   |   |   |  "|"  |
             //                     |      |      | HOLD |        |  |       | ADJ  |       |       |
 
             display-name = "Lower";
             bindings = <
-&kp N1      &kp N2        &kp N3        &kp N4        &kp N5        &kp N6                          &trans     &trans     &trans           &trans     &trans    &kp DEL
 &kp F1      &kp F2        &kp F3        &kp F4        &kp F5        &kp F6                          &kp F7     &kp F8     &kp F9           &kp F10    &kp F11   &kp F12
-&kp GRAVE   &kp EXCL      &kp AT        &kp HASH      &kp DOLLAR    &kp PRCNT                       &kp CARET  &kp AMPS   &kp KP_MULTIPLY  &kp LPAR   &kp RPAR  &kp TILDE
-&trans      &kp LBKT      &kp RBKT      &kp LBRC      &kp RBRC      &kp BSLH      &trans    &trans  &trans     &kp MINUS  &kp PLUS         &kp EQUAL  &kp PIPE  &kp PIPE
+&kp GRAVE   &kp EXCL      &kp AT        &kp HASH      &kp DOLLAR    &kp PRCNT                       &kp INS    &kp DEL    &kp HOME         &kp END    &kp PG_UP &kp PG_DN
+&trans      &kp LBKT      &kp RBKT      &kp LBRC      &kp RBRC      &kp BSLH                        &kp CARET  &kp AMPS   &kp KP_MULTIPLY  &kp LPAR   &kp RPAR  &kp TILDE
+&trans      &trans        &trans        &trans        &trans        &trans        &trans    &trans  &trans     &kp MINUS  &kp PLUS         &kp EQUAL  &kp PIPE  &kp PIPE
                                         &trans        &trans        &trans        &trans    &trans  &mo 3      &trans     &trans
             >;
 
