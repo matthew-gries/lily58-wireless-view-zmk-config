@@ -59,7 +59,7 @@
             // |  TAB  |  Q  |  W  |  E   |  R   |  T   |                   |  Y   |  U    |  I    |  O   |   P   |   -   |
             // | CAPS  |  A  |  S  |  D   |  F   |  G   |                   |  H   |  J    |  K    |  L   |   ;   |   '   |
             // | SHIFT |  Z  |  X  |  C   |  V   |  B   |   "["  |  |  "]"  |  N   |  M    |  ,    |  .   |   /   | SHIFT |
-            //                     | ALT  | GUI  | :/LWR | SPACE |  | ENTER |BSPC/RSE| CTRL | ALTGR |
+            //                     | ALT  | GUI  | :/LWR | SPACE |  | ENTER |BSPC/RSE| CTRL | RGUI  |
 
             display-name = "Base";
             bindings = <
@@ -67,7 +67,7 @@
 &kp TAB    &kp Q   &kp W   &kp E     &kp R     &kp T                                        &kp Y   &kp U              &kp I      &kp O      &kp P     &kp MINUS
 &kp CLCK   &kp A   &kp S   &kp D     &kp F     &kp G                                        &kp H   &kp J              &kp K      &kp L      &kp SEMI  &kp SQT
 &kp LSHFT  &kp Z   &kp X   &kp C     &kp V     &kp B   &kp LCTRL      &kp RCTRL             &kp N   &kp M              &kp COMMA  &kp DOT    &kp FSLH  &kp RSHFT
-                           &kp LALT  &kp LGUI  &colon_lower 1 COLON  &kp SPACE    &kp RET  &bspc_raise 2 BSPC  &bslh_vim 4 BSLH  &kp RALT
+                           &kp LALT  &kp LGUI  &colon_lower 1 COLON  &kp SPACE    &kp RET  &bspc_raise 2 BSPC  &bslh_vim 4 BSLH  &kp RGUI
             >;
         };
 
@@ -97,7 +97,7 @@
             // |       |     |     |      |      |      |                   |      |       |  UP   |      |       |       |
             // |       | GUI | ALT | CTRL | SHFT |      |                   |      | LEFT  | DOWN  | RIGHT|       |       |
             // |       |     |     |      |      |      |        |  |       |      | HOME  | PGDN  | PGUP | END   |       |
-            //                     |      |      | ADJ  |        |  |       | HOLD |       |       |
+            //                     | RALT |      | ADJ  |        |  |       | HOLD |       |       |
 
             display-name = "Raise";
             bindings = <
@@ -105,7 +105,7 @@
 &trans  &trans    &trans    &trans    &trans     &trans                      &trans  &trans    &kp UP     &trans     &trans   &trans
 &trans  &kp LGUI  &kp LALT  &kp LCTRL &kp LSHFT  &trans                      &trans  &kp LEFT  &kp DOWN   &kp RIGHT  &trans   &trans
 &trans  &trans    &trans    &trans    &trans     &trans  &trans    &trans    &trans  &kp HOME  &kp PG_DN  &kp PG_UP  &kp END  &trans
-                            &trans    &trans     &mo 3   &trans    &trans    &trans  &trans    &trans
+                            &sk RALT  &trans     &mo 3   &trans    &trans    &trans  &trans    &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
@@ -132,16 +132,16 @@
         vim_layer {
             // ------------------------------------------------------------------------------------------------------------
             // |       |     |     |      |      |      |                   |      |       |       |      |       |       |
-            // |       |     |WORD→|      |      |      |                   | REDO | UNDO  |       |      | PASTE |       |
-            // |       | ALL | SAVE| DEFN |FUZZY |      |                   |C-LEFT|C-DOWN |C-UP   |C-RGHT|       |       |
+            // |       |     |WORD→|      |      |      |                   | REDO | UNDO  | C-UP  |      | PASTE |       |
+            // |       | ALL | SAVE| DEFN |FUZZY |      |                   |      |C-LEFT |C-DOWN |C-RGHT|       |       |
             // |       | UNDO| CUT | COPY |PASTE |WORD← |        |  |       |RENAME| HOME  | PGDN  | PGUP | END   |       |
             //                     |      |      |      |        |  |       | HOLD |       |       |
 
             display-name = "Vim";
             bindings = <
 &trans  &vim_reg  &trans        &trans    &trans     &trans                          &trans     &trans        &trans       &trans         &trans   &trans
-&trans  &trans    &kp LC(RIGHT) &trans    &trans     &trans                          &kp LC(Y)  &kp LC(Z)     &trans       &trans         &kp LC(V) &trans
-&trans  &kp LC(A) &kp LC(S)     &kp F12   &kp LC(P)  &trans                          &kp LC(LEFT) &kp LC(DOWN) &kp LC(UP)   &kp LC(RIGHT)  &trans   &trans
+&trans  &trans    &kp LC(RIGHT) &trans    &trans     &trans                          &kp LC(Y)  &kp LC(Z)     &kp LC(UP)   &trans         &kp LC(V) &trans
+&trans  &kp LC(A) &kp LC(S)     &kp F12   &kp LC(P)  &trans                          &trans       &kp LC(LEFT) &kp LC(DOWN) &kp LC(RIGHT)  &trans   &trans
 &trans  &kp LC(Z) &kp LC(X)     &kp LC(C) &kp LC(V)  &kp LC(LEFT)  &trans    &trans  &kp F2     &kp HOME      &kp PG_DN    &kp PG_UP      &kp END  &trans
                                 &trans    &trans     &trans        &trans    &trans  &trans     &trans        &trans
             >;
